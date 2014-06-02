@@ -15,7 +15,7 @@ Vendor:         IUS Community Project
 Group:          System Environment/Libraries
 License:        ASL 2.0
 URL:            http://modwsgi.readthedocs.org
-Source0:        https://github.com/GrahamDumpleton/mod_wsgi/archive/%{version}.tar.gz
+Source0:        https://github.com/GrahamDumpleton/%{srcname}/archive/%{version}.tar.gz
 Source1:        %{name}.conf
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  httpd-devel
