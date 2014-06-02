@@ -43,9 +43,7 @@ make LDFLAGS="-L%{_libdir}" %{?_smp_mflags}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
-
+make install DESTDIR=%{buildroot}
 install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d
 install -p -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d/%{name}.conf
 
@@ -53,7 +51,7 @@ mv  %{buildroot}%{_libdir}/httpd/modules/mod_wsgi.so \
     %{buildroot}%{_libdir}/httpd/modules/%{name}.so
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %posttrans
 # hack for previous ius/rackspace mod_wsgi-python32 installs
