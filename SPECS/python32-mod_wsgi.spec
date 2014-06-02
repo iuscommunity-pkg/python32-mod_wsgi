@@ -44,11 +44,9 @@ make LDFLAGS="-L%{_libdir}" %{?_smp_mflags}
 
 %install
 make install DESTDIR=%{buildroot}
-install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d
-install -p -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d/%{name}.conf
+install -Dpm 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
+mv %{buildroot}%{_libdir}/httpd/modules/{%{srcname},%{name}}.so
 
-mv  %{buildroot}%{_libdir}/httpd/modules/mod_wsgi.so \
-    %{buildroot}%{_libdir}/httpd/modules/%{name}.so
 
 %clean
 rm -rf %{buildroot}
