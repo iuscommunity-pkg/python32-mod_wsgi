@@ -1,7 +1,7 @@
 %global pymajor 3
 %global pyminor 2
 %global pyver %{pymajor}.%{pyminor}
-%global iusver %{pymajor}%{pyminor}u
+%global iusver %{pymajor}%{pyminor}
 %global __python3 %{_bindir}/python%{pyver}
 %global python3_sitelib  %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
 %global python3_sitearch %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")
