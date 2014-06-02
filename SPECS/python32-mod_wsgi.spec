@@ -1,31 +1,28 @@
+%global pymajor 3
+%global pyminor 2
+%global pyver %{pymajor}.%{pyminor}
+%global iusver %{pymajor}%{pyminor}u
+%global __python3 %{_bindir}/python%{pyver}
+%global python3_sitelib  %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
+%global python3_sitearch %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")
+%global srcname mod_wsgi
 
-%global pybasever 3.2
-%global pyver 32
-%global real_name mod_wsgi
-
-# not supported by python32 in IUS currently
-#%%global __os_install_post %{__python26_os_install_post}
-%global __python %{_bindir}/python%{pybasever}
-
-Name:           python%{pyver}-mod_wsgi
+Name:           python%{iusver}-%{srcname}
 Version:        4.1.1
 Release:        1.ius%{?dist}
 Summary:        A WSGI interface for Python web applications in Apache
-
+Vendor:         IUS Community Project
 Group:          System Environment/Libraries
 License:        ASL 2.0
-Vendor:         IUS Community Project
 URL:            http://modwsgi.readthedocs.org
 Source0:        https://github.com/GrahamDumpleton/mod_wsgi/archive/%{version}.tar.gz
 Source1:        python32-mod_wsgi.conf
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
 BuildRequires:  httpd-devel
-BuildRequires:  python%{pyver}, python%{pyver}-devel
-Provides:       %{real_name} = %{version}
-
-Obsoletes:      mod_wsgi-python%{pyver} < 3.2-2
-Provides:       mod_wsgi-python%{pyver} = %{version}-%{release}
+BuildRequires:  python%{iusver}-devel
+Requires:       httpd
+Requires:       python%{iusver}
+Provides:       %{srcname} = %{version}
 
 
 %description
@@ -37,11 +34,11 @@ existing WSGI adapters for mod_python or CGI.
 
 
 %prep
-%setup -q -n %{real_name}-%{version}
+%setup -q -n %{srcname}-%{version}
 
 
 %build
-%configure --with-python=python%{pybasever}
+%configure --with-python=%{__python3}
 make LDFLAGS="-L%{_libdir}" %{?_smp_mflags}
 
 
