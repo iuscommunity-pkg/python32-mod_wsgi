@@ -8,7 +8,7 @@
 %global srcname mod_wsgi
 
 Name:           python%{iusver}-%{srcname}
-Version:        4.1.2
+Version:        4.1.3
 Release:        1.ius%{?dist}
 Summary:        A WSGI interface for Python web applications in Apache
 Vendor:         IUS Community Project
@@ -73,6 +73,9 @@ fi
 
 
 %changelog
+* Thu Jun 05 2014 Carl George <carl.george@rackspace.com> - 4.1.3-1.ius
+- Latest sources from upstream
+
 * Mon Jun 02 2014 Carl George <carl.george@rackspace.com> - 4.1.2-1.ius
 - Latest sources from upstream
 - Implement python packaging best practices
