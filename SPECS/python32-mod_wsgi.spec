@@ -6,6 +6,7 @@
 %global python3_sitelib  %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")
 %global python3_sitearch %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")
 %global srcname mod_wsgi
+%global src %(echo %{srcname} | cut -c1)
 
 Name:           python%{iusver}-%{srcname}
 Version:        4.1.3
@@ -15,7 +16,7 @@ Vendor:         IUS Community Project
 Group:          System Environment/Libraries
 License:        ASL 2.0
 URL:            http://modwsgi.readthedocs.org
-Source0:        https://github.com/GrahamDumpleton/%{srcname}/archive/%{version}.tar.gz
+Source0:        https://pypi.python.org/packages/source/%{src}/%{srcname}/%{srcname}-%{version}.tar.gz
 Source1:        %{name}.conf
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  httpd-devel
@@ -73,6 +74,8 @@ fi
 
 
 %changelog
+- Get source from pypi instead of github
+
 * Thu Jun 05 2014 Carl George <carl.george@rackspace.com> - 4.1.3-1.ius
 - Latest sources from upstream
 
