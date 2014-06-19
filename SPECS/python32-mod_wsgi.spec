@@ -40,17 +40,17 @@ existing WSGI adapters for mod_python or CGI.
 
 %build
 %configure --with-python=%{__python3}
-make LDFLAGS="-L%{_libdir}" %{?_smp_mflags}
+%{__make} LDFLAGS="-L%{_libdir}" %{?_smp_mflags}
 
 
 %install
-make install DESTDIR=%{buildroot}
-install -Dpm 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
-mv %{buildroot}%{_libdir}/httpd/modules/{%{srcname},%{name}}.so
+%{__make} install DESTDIR=%{buildroot}
+%{__install} -Dpm 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
+%{__mv} %{buildroot}%{_libdir}/httpd/modules/{%{srcname},%{name}}.so
 
 
 %clean
-rm -rf %{buildroot}
+%{__rm} -rf %{buildroot}
 
 %posttrans
 # hack for previous ius/rackspace mod_wsgi-python32 installs
