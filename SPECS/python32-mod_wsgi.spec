@@ -9,7 +9,7 @@
 %global src %(echo %{srcname} | cut -c1)
 
 Name:           python%{iusver}-%{srcname}
-Version:        4.2.6
+Version:        4.2.7
 Release:        1.ius%{?dist}
 Summary:        A WSGI interface for Python web applications in Apache
 Vendor:         IUS Community Project
@@ -74,6 +74,9 @@ fi
 
 
 %changelog
+* Mon Aug 04 2014 Ben Harper <ben.harper@rackspace.com> - 4.2.7-1.ius
+- Latest upstream
+
 * Wed Jul 16 2014 Carl George <carl.george@rackspace.com> - 4.2.6-1.ius
 - Latest upstream
 
