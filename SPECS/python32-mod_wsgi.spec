@@ -18,7 +18,6 @@ License:        ASL 2.0
 URL:            http://modwsgi.readthedocs.org
 Source0:        https://pypi.python.org/packages/source/%{src}/%{srcname}/%{srcname}-%{version}.tar.gz
 Source1:        %{name}.conf
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  httpd-devel
 BuildRequires:  python%{iusver}-devel
 Requires:       httpd
@@ -49,9 +48,6 @@ existing WSGI adapters for mod_python or CGI.
 %{__mv} %{buildroot}%{_libdir}/httpd/modules/{%{srcname},%{name}}.so
 
 
-%clean
-%{__rm} -rf %{buildroot}
-
 %posttrans
 # hack for previous ius/rackspace mod_wsgi-python32 installs
 if [ -e '/etc/httpd/conf.d/wsgi.conf.rpmsave' ]; then
@@ -65,6 +61,7 @@ if [ -e '/etc/httpd/conf.d/wsgi.conf.rpmsave' ]; then
 
     /etc/init.d/httpd graceful
 fi
+
 
 %files
 %defattr(-,root,root,-)
