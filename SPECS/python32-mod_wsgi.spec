@@ -11,8 +11,8 @@
 %{!?_httpd_mmn: %{expand: %%global _httpd_mmn %%(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}}
 
 Name:           python%{iusver}-%{srcname}
-Version:        4.4.5
-Release:        2.ius%{?dist}
+Version:        4.4.6
+Release:        1.ius%{?dist}
 Summary:        A WSGI interface for Python web applications in Apache
 Vendor:         IUS Community Project
 Group:          System Environment/Libraries
@@ -76,6 +76,9 @@ fi
 
 
 %changelog
+* Thu Jan 15 2015 Carl George <carl.george@rackspace.com> - 4.4.6-1.ius
+- Latest upstream
+
 * Thu Jan 08 2015 Carl George <carl.george@rackspace.com> - 4.4.5-2.ius
 - Ensure we build against and require the stock version of httpd
 
