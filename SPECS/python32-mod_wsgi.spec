@@ -19,11 +19,9 @@ License:        ASL 2.0
 URL:            http://modwsgi.readthedocs.org
 Source0:        https://github.srcurl.net/GrahamDumpleton/%{srcname}/%{version}/%{srcname}-%{version}.tar.gz
 Source1:        %{name}.conf
-%if 0%{?rhel} < 7
-BuildRequires:  httpd-devel < 2.4
-%else
-BuildRequires:  httpd-devel
-%endif
+
+BuildRequires:  httpd-devel < 2.4.10
+
 BuildRequires:  python%{iusver}-devel
 Requires:       httpd-mmn = %{_httpd_mmn}
 Requires:       python%{iusver}
