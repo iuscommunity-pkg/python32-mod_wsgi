@@ -7,7 +7,9 @@
 %global python3_sitearch %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")
 %global srcname mod_wsgi
 
+%{!?_httpd_apxs: %{expand: %%global _httpd_apxs %%{_sbindir}/apxs}}
 %{!?_httpd_mmn: %{expand: %%global _httpd_mmn %%(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}}
+%{!?_httpd_moddir:    %{expand: %%global _httpd_moddir    %%{_libdir}/httpd/modules}}
 
 Name:           python%{iusver}-%{srcname}
 Version:        4.5.1
@@ -41,12 +43,14 @@ existing WSGI adapters for mod_python or CGI.
 
 
 %build
-%configure --with-python=%{__python3}
-%{__make} LDFLAGS="-L%{_libdir}" %{?_smp_mflags}
+export LDFLAGS="$RPM_LD_FLAGS -L%{_libdir}"
+export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+%configure --enable-shared --with-apxs=%{_httpd_apxs} --with-python=%{__python3}
+%{__make} %{?_smp_mflags}
 
 
 %install
-%{__make} install DESTDIR=%{buildroot}
+%{__make} install DESTDIR=%{buildroot} LIBEXECDIR=%{_httpd_moddir}
 %{__install} -Dpm 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
 %{__mv} %{buildroot}%{_libdir}/httpd/modules/{%{srcname},%{name}}.so
 
@@ -76,6 +80,7 @@ fi
 * Mon Apr 11 2016 Carl George <carl.george@rackspace.com> - 4.5.1-1.ius
 - Latest upstream
 - Switch to GitHub source via srcurl.net
+- Use configure/install flags from Fedora
 
 * Mon Jan 25 2016 Ben Harper <ben.harper@rackspace.com> - 4.4.22-1.ius
 - Latest upstream
